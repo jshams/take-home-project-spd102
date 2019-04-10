@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
-
 import './App.css';
+import Weather from './Weather'
 
 /** 
  * This example illustrates a simple react project 
@@ -64,28 +64,28 @@ class App extends Component {
       // If there is no data return undefined
       return undefined
     }
+    console.log(this.state.weatherData)
+    const { main, description, icon } = this.state.weatherData.weather[0]
+    const { temp, pressure, humidity, temp_min, temp_max } = this.state.weatherData.main
+    return (
+      <Weather
+        main={main}
+        desc={description}
+        icon={icon}
+        temp={temp}
+        pressure={pressure}
+        humidity={humidity}
+        temp_min={temp_min}
+        temp_max={temp_max}
+      />
+    )
 
     /* 
     This next step needs another level of error checking. It's 
     possible to get a JSON response for an invalid zip in which 
     case the step below fails. 
-    */ 
-    console.log(this.state.weatherData)
+    */
     // Take the weather data apart to more easily populate the component
-    const { main, description, icon } = this.state.weatherData.weather[0]
-    const { temp, pressure, humidity, temp_min, temp_max } = this.state.weatherData.main 
-    
-    return (
-      <div>
-        <div>Title: {main}</div>
-        <div>Desc: {description}</div>
-        <div>Icon: {icon}</div>
-        <div>Temp: {temp}</div>
-        <div>Pressure: {pressure}</div>
-        <div>Humidity: {humidity}</div>
-        <div>Temp Min: {temp_min} Max:{temp_max}</div>
-      </div>
-    )
   }
 
   render() {
@@ -100,10 +100,10 @@ class App extends Component {
           Set the value of the input to a value held in component state
           Set the value held in component state when a change occurs at the input 
           */}
-          <input 
-            value={this.state.inputValue} 
+          <input
+            value={this.state.inputValue}
             onChange={e => this.setState({ inputValue: e.target.value })}
-            type="text" 
+            type="text"
             pattern="(\d{5}([\-]\d{4})?)"
             placeholder="enter zip"
           />
