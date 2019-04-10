@@ -35,7 +35,8 @@ class App extends Component {
     // ! Get your own API key ! 
     const apikey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY
     // Get the zip from the input
-    const zip = this.state.inputValue
+    let zip = this.state.inputValue
+
     // Form an API request URL with the apikey and zip
     const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${apikey}`
     // Get data from the API with fetch
@@ -44,7 +45,9 @@ class App extends Component {
       return res.json()
     }).then((json) => {
       // If the request was successful assign the data to component state
+
       this.setState({ weatherData: json })
+      // console.log(json)
       // ! This needs better error checking here or at renderWeather() 
       // It's possible to get a valid JSON response that is not weather 
       // data, for example when a bad zip code entered.
@@ -59,33 +62,7 @@ class App extends Component {
   }
 
   renderWeather() {
-    // This method returns undefined or a JSX component
-    if (this.state.weatherData === null) {
-      // If there is no data return undefined
-      return undefined
-    }
-    console.log(this.state.weatherData)
-    const { main, description, icon } = this.state.weatherData.weather[0]
-    const { temp, pressure, humidity, temp_min, temp_max } = this.state.weatherData.main
-    return (
-      <Weather
-        main={main}
-        desc={description}
-        icon={icon}
-        temp={temp}
-        pressure={pressure}
-        humidity={humidity}
-        temp_min={temp_min}
-        temp_max={temp_max}
-      />
-    )
-
-    /* 
-    This next step needs another level of error checking. It's 
-    possible to get a JSON response for an invalid zip in which 
-    case the step below fails. 
-    */
-    // Take the weather data apart to more easily populate the component
+    return <Weather weatherData={this.state.weatherData} />
   }
 
   render() {
@@ -112,7 +89,6 @@ class App extends Component {
 
         </form>
 
-        {/** Conditionally render this component */}
         {this.renderWeather()}
 
       </div>
