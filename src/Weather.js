@@ -1,6 +1,9 @@
 import React from 'react'
 import './Weather.css'
 import ErrorMessage from './ErrorMessage'
+import Temp from './Temp'
+import Description from './Description';
+import Atmosphere from './Atmosphere';
 
 
 const Weather = (props) => {
@@ -22,13 +25,19 @@ const Weather = (props) => {
 
     return (
         <div className="weather">
-            <h2><strong>Title: </strong>{main}</h2>
-            <p><strong>Description: </strong> {description}</p>
-            <p><strong>Icon: </strong>{icon}</p>
-            <p><strong>Temp: </strong>{temp}</p>
-            <p><strong>Pressure: </strong>{pressure}</p>
-            <p><strong>Humidity: </strong>{humidity}</p>
-            <p><strong>Temp Min: </strong>{temp_min} Max:{temp_max}</p>
+            <Description
+                title={main}
+                description={description}
+            />
+            <Atmosphere
+                pressure={pressure}
+                humidity={humidity}
+            />
+            <Temp
+                temp={temp}
+                temp_min={temp_min}
+                temp_max={temp_max}
+            />
         </div>
     )
 }
