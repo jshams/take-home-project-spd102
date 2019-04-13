@@ -38,7 +38,7 @@ class App extends Component {
     let zip = this.state.inputValue
 
     // Form an API request URL with the apikey and zip
-    const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${apikey}`
+    const url = `https://api.openweathermap.org/data/2.5/forecast?zip=${zip},us&appid=${apikey}`
     // Get data from the API with fetch
     fetch(url).then(res => {
       // Handle the response stream as JSON
@@ -62,16 +62,22 @@ class App extends Component {
   }
 
   renderWeather() {
-    return <Weather weatherData={this.state.weatherData} />
+    if (this.state.weatherData == null) return
+    const weatherDatas = this.state.weatherData.list.slice(0, 7).map((data) => {
+      return <Weather
+        weatherData={data}
+      />
+    })
+    return weatherDatas
   }
 
   render() {
+    console.log(this.state.weatherData)
     return (
       <div className="App">
 
         {/** This input uses the controlled component pattern */}
         <form onSubmit={e => this.handleSubmit(e)}>
-
           {/** 
           This pattern is used for input and other form elements 
           Set the value of the input to a value held in component state
@@ -89,7 +95,9 @@ class App extends Component {
 
         </form>
 
-        {this.renderWeather()}
+        <div className="weathers">
+          {this.renderWeather()}
+        </div>
 
       </div>
     );
