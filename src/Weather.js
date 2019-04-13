@@ -20,7 +20,9 @@ const Weather = (props) => {
         )
     }
 
-    const { main, description } = props.weatherData.weather
+    // const { main, description } = props.weatherData.weather
+    const main = props.weatherData.weather.main
+    const description = props.weatherData.weather.description
     const { temp, pressure, humidity, temp_min, temp_max } = props.weatherData.main
 
     return (
