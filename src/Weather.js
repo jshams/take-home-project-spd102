@@ -7,41 +7,41 @@ import Atmosphere from './Atmosphere';
 
 
 const Weather = (props) => {
-    if (props.weatherData === null) {
-        return (
-            <h1>WELCOME!</h1>
-        )
-    }
-    else if ((props.weatherData.cod === '404') || (props.weatherData.cod === '400')) {
-        return (
-            <ErrorMessage
-                message={props.weatherData.message}
-            />
-        )
-    }
-
-    // const { main, description } = props.weatherData.weather
-    const main = props.weatherData.weather.main
-    const description = props.weatherData.weather.description
-    const { temp, pressure, humidity, temp_min, temp_max } = props.weatherData.main
-
+  if (props.weatherData === null) {
     return (
-        <div className="weather">
-            <Description
-                title={main}
-                description={description}
-            />
-            <Atmosphere
-                pressure={pressure}
-                humidity={humidity}
-            />
-            <Temp
-                temp={temp}
-                temp_min={temp_min}
-                temp_max={temp_max}
-            />
-        </div>
+      <h1>WELCOME!</h1>
     )
+  }
+  else if ((props.weatherData.cod === '404') || (props.weatherData.cod === '400')) {
+    return (
+      <ErrorMessage
+        message={props.weatherData.message}
+      />
+    )
+  }
+
+  // const { main, description } = props.weatherData.weather
+  const main = props.weatherData.weather.main
+  const description = props.weatherData.weather.description
+  const { temp, pressure, humidity, temp_min, temp_max } = props.weatherData.main
+
+  return (
+    <div className="weather">
+      <Description
+        title={main}
+        description={description}
+      />
+      <Atmosphere
+        pressure={pressure}
+        humidity={humidity}
+      />
+      <Temp
+        temp={temp}
+        temp_min={temp_min}
+        temp_max={temp_max}
+      />
+    </div>
+  )
 }
 
 export default Weather
